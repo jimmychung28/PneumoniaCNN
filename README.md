@@ -2,6 +2,8 @@
 
 A deep learning model for detecting pneumonia in chest X-ray images using Convolutional Neural Networks (CNN) with Keras/TensorFlow.
 
+⚠️ **Apple Silicon Users**: This project includes special support for M1/M2/M3 Macs with Metal GPU acceleration. See installation instructions below.
+
 ## Overview
 
 This project implements a CNN model to classify chest X-ray images as either NORMAL or PNEUMONIA. The model addresses class imbalance in the dataset and includes various regularization techniques for improved performance.
@@ -47,14 +49,35 @@ Each convolutional layer includes BatchNormalization for better training stabili
 
 ## Requirements
 
-Install dependencies:
+### For Apple Silicon (M1/M2/M3) Macs:
 ```bash
+# Run the installation script
+./install_apple_silicon.sh
+
+# Or install manually:
+pip install -r requirements_apple_silicon.txt
+```
+
+### For Intel Macs or CPUs without AVX:
+```bash
+# Check your CPU and install appropriate version
+python check_cpu_and_install.py
+
+# Or install manually:
+pip install -r requirements.txt
+```
+
+### For Standard Systems with AVX Support:
+```bash
+pip install tensorflow>=2.4.0
 pip install -r requirements.txt
 ```
 
 Required packages:
-- tensorflow>=2.4.0
-- keras>=2.4.0
+- tensorflow-macos==2.13.0 (Apple Silicon)
+- tensorflow-metal==1.0.1 (Apple Silicon GPU)
+- tensorflow-cpu==2.4.0 (CPUs without AVX)
+- tensorflow>=2.4.0 (Standard systems)
 - numpy>=1.19.2
 - scikit-learn>=0.24.0
 - matplotlib>=3.3.0
@@ -63,7 +86,14 @@ Required packages:
 
 ## Usage
 
-Run the training script:
+### For Apple Silicon Macs:
+```bash
+# Activate the Apple Silicon environment
+source venv_m1/bin/activate
+python cnn.py
+```
+
+### For Other Systems:
 ```bash
 python cnn.py
 ```
@@ -110,6 +140,23 @@ Key parameters can be adjusted in the `main()` function:
 - `EPOCHS`: Default 50 (with early stopping)
 - `INPUT_SHAPE`: Default (128, 128, 3)
 - `learning_rate`: Default 0.0001
+
+## Troubleshooting
+
+### "AVX instructions not available" Error
+- **Apple Silicon**: Use the `install_apple_silicon.sh` script
+- **Intel/AMD without AVX**: Run `python check_cpu_and_install.py`
+- **Alternative**: Use Google Colab for free GPU access
+
+### Apple Silicon Specific Issues
+- Ensure you're using Python 3.8-3.11 (3.12+ may have compatibility issues)
+- Use the dedicated `venv_m1` environment created by the installation script
+- Metal GPU should be automatically detected and used
+
+### Performance Notes
+- Apple Silicon: Expect 5-10x speedup with Metal GPU vs CPU
+- CPUs without AVX: Training will be slower but functional
+- Consider reducing batch size if you encounter memory issues
 
 ## License
 

@@ -9,11 +9,21 @@ from keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
+import platform
 
 # Set random seeds for reproducibility
 np.random.seed(42)
 import tensorflow as tf
 tf.random.set_seed(42)
+
+# Configure for Apple Silicon if available
+if platform.system() == 'Darwin' and platform.machine() == 'arm64':
+    print("🍎 Apple Silicon detected - Metal GPU acceleration will be used")
+    # List available devices
+    print("Available devices:", tf.config.list_physical_devices())
+    # Metal GPU is automatically used when available
+else:
+    print("Running on:", platform.system(), platform.machine())
 
 class PneumoniaCNN:
     def __init__(self, input_shape=(128, 128, 3), learning_rate=0.0001):
