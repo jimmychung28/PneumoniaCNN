@@ -1,3 +1,34 @@
+# Model files (too large for GitHub)
+models/*.h5
+models/*.keras
+models/*.pb
+
+# Training logs
+logs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
 venv/
 venv_m1/
-.
+env/
+
+# Generated images
+*.png
+confusion_matrix.png
+training_history.png
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
