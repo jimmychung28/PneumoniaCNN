@@ -1,0 +1,72 @@
+# Fast Experiment Configuration
+# Reduced parameters for quick testing and development
+
+experiment_name: "fast_experiment"
+description: "Fast configuration for development and testing"
+tags: ["development", "fast", "testing"]
+random_seed: 42
+
+model:
+  architecture: "standard"
+  input_shape: [64, 64, 3]    # Smaller input for faster training
+  learning_rate: 0.001        # Higher learning rate for faster convergence
+  filters_base: 16            # Fewer filters for faster training
+  depth: 2                    # Shallower network
+  dropout_rate: 0.3
+  dense_dropout_rate: 0.5
+
+training:
+  batch_size: 16              # Smaller batch size for faster iterations
+  epochs: 10                  # Fewer epochs for testing
+  validation_split: 0.2
+  
+  optimizer: "adam"
+  use_lr_schedule: false      # Disable for simplicity
+  use_early_stopping: true
+  early_stopping_patience: 3  # Shorter patience
+  early_stopping_monitor: "val_loss"
+  early_stopping_mode: "min"
+  
+  use_class_weights: true
+  use_mixed_precision: false
+
+data:
+  train_dir: "chest_xray/train"
+  test_dir: "chest_xray/test"
+  image_size: [64, 64]        # Match model input
+  normalize_method: "rescale"
+  
+  # Reduced augmentation for faster training
+  use_augmentation: true
+  augmentation:
+    rotation_range: 10
+    width_shift_range: 0.1
+    height_shift_range: 0.1
+    shear_range: 0.1
+    zoom_range: 0.1
+    horizontal_flip: true
+    vertical_flip: false
+    fill_mode: "nearest"
+  
+  num_workers: 2
+  prefetch_buffer: 1
+  cache_dataset: false
+  class_names: ["NORMAL", "PNEUMONIA"]
+
+paths:
+  models_dir: "models/fast_experiments"
+  logs_dir: "logs/fast_experiments"
+  results_dir: "results/fast_experiments"
+  checkpoints_dir: "checkpoints/fast_experiments"
+  model_name_template: "fast_{architecture}_{timestamp}"
+  create_dirs: true
+
+logging:
+  log_level: "INFO"
+  log_to_file: true
+  log_file: "fast_experiment.log"
+  verbose: 1
+  use_tensorboard: true
+  tensorboard_log_dir: "logs/fast_experiments"
+  use_wandb: false
+  use_mlflow: false

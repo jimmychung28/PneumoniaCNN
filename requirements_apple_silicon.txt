@@ -16,4 +16,7 @@ opencv-python>=4.5.0
 # Additional ML utilities
 pandas>=1.5.0
 
+# Configuration management
+PyYAML>=6.0
+
 # Note: Use Python 3.8-3.11 for best compatibility with tensorflow-macos

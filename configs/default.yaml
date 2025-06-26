@@ -1,0 +1,133 @@
+# Default Configuration for Pneumonia CNN Project
+# This file contains all configurable parameters with sensible defaults
+
+# Experiment metadata
+experiment_name: "pneumonia_detection_default"
+description: "Default configuration for pneumonia detection using CNN"
+tags: ["pneumonia", "cnn", "medical", "xray"]
+random_seed: 42
+
+# Model configuration
+model:
+  # Architecture selection: "standard", "unet", "two_stage"
+  architecture: "standard"
+  
+  # Input configuration
+  input_shape: [128, 128, 3]  # Height, Width, Channels
+  learning_rate: 0.0001
+  
+  # CNN specific parameters
+  filters_base: 32          # Base number of filters (32, 64, 128, 256)
+  depth: 4                  # Number of convolutional blocks
+  dropout_rate: 0.25        # Dropout rate for conv layers
+  dense_dropout_rate: 0.5   # Dropout rate for dense layers
+  
+  # U-Net specific parameters (used when architecture="unet")
+  unet_input_size: [512, 512, 1]  # Grayscale input for segmentation
+  unet_filters: [64, 128, 256, 512, 1024]
+  unet_dropout_rates: [0.1, 0.1, 0.2, 0.2, 0.3]
+  
+  # Two-stage specific parameters (used when architecture="two_stage")
+  classification_input_size: [224, 224, 3]
+  backbone: "resnet50"      # "resnet50", "densenet121", "efficientnet"
+
+# Training configuration
+training:
+  # Basic training parameters
+  batch_size: 32
+  epochs: 50
+  validation_split: 0.2
+  
+  # Optimizer settings
+  optimizer: "adam"
+  optimizer_params: {}      # Additional optimizer parameters
+  
+  # Learning rate scheduling
+  use_lr_schedule: true
+  lr_schedule_type: "reduce_on_plateau"  # "reduce_on_plateau", "cosine", "exponential"
+  lr_schedule_params:
+    factor: 0.5
+    patience: 5
+    min_lr: 0.0000001
+  
+  # Early stopping
+  use_early_stopping: true
+  early_stopping_patience: 10
+  early_stopping_monitor: "val_loss"
+  early_stopping_mode: "min"
+  
+  # Class balancing
+  use_class_weights: true
+  class_weights: null       # Auto-calculated if null
+  
+  # Advanced training features
+  use_mixed_precision: false
+  gradient_clip_value: null
+  gradient_clip_norm: null
+
+# Data configuration
+data:
+  # Dataset paths
+  train_dir: "chest_xray/train"
+  test_dir: "chest_xray/test"
+  val_dir: null             # Optional separate validation set
+  
+  # Image preprocessing
+  image_size: [128, 128]    # Must match model.input_shape[:2]
+  normalize_method: "rescale"  # "rescale", "standardize", "imagenet"
+  
+  # Data augmentation
+  use_augmentation: true
+  augmentation:
+    rotation_range: 20
+    width_shift_range: 0.2
+    height_shift_range: 0.2
+    shear_range: 0.2
+    zoom_range: 0.2
+    horizontal_flip: true
+    vertical_flip: false
+    fill_mode: "nearest"
+  
+  # Data loading optimization
+  num_workers: 4
+  prefetch_buffer: 2
+  cache_dataset: false
+  
+  # Class configuration
+  class_names: ["NORMAL", "PNEUMONIA"]
+
+# File paths and directories
+paths:
+  models_dir: "models"
+  logs_dir: "logs"
+  results_dir: "results"
+  checkpoints_dir: "checkpoints"
+  
+  # Naming templates
+  model_name_template: "{architecture}_{timestamp}"
+  checkpoint_name_template: "{architecture}_checkpoint_{epoch:02d}_{val_loss:.4f}"
+  
+  create_dirs: true
+
+# Logging and monitoring
+logging:
+  # Basic logging
+  log_level: "INFO"
+  log_to_file: true
+  log_file: "training.log"
+  verbose: 1                # 0=silent, 1=progress bar, 2=one line per epoch
+  
+  # TensorBoard integration
+  use_tensorboard: true
+  tensorboard_log_dir: "logs"
+  tensorboard_histogram_freq: 1
+  
+  # Weights & Biases integration (optional)
+  use_wandb: false
+  wandb_project: "pneumonia-detection"
+  wandb_entity: null
+  
+  # MLflow integration (optional)
+  use_mlflow: false
+  mlflow_tracking_uri: "mlruns"
+  mlflow_experiment_name: "pneumonia_detection"
