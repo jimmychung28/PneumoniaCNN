@@ -14,7 +14,7 @@ def test_config_schema():
     print("🧪 Testing Configuration Schema...")
     
     try:
-        from config_schema import Config, ModelConfig, TrainingConfig, DataConfig
+        from src.config.config_schema import Config, ModelConfig, TrainingConfig, DataConfig
         
         # Test default configuration
         config = Config()
@@ -61,7 +61,7 @@ def test_config_examples():
         return True
     
     try:
-        from config_schema import Config
+        from src.config.config_schema import Config
         
         config_files = list(configs_dir.glob("*.yaml")) + list(configs_dir.glob("*.yml"))
         
@@ -137,7 +137,7 @@ def demonstrate_config_features():
     print("\n🚀 Demonstrating Configuration Features...")
     
     try:
-        from config_schema import Config
+        from src.config.config_schema import Config
         
         # 1. Create different experiment configurations
         print("\n1. Creating different experiment types:")

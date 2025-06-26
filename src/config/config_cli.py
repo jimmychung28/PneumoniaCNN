@@ -10,8 +10,8 @@ import json
 from pathlib import Path
 from typing import Dict, Any
 
-from config_loader import ConfigManager, ConfigurationError
-from config_schema import Config
+from src.config.config_loader import ConfigManager, ConfigurationError
+from src.config.config_schema import Config
 
 
 def list_configs(config_manager: ConfigManager) -> None:

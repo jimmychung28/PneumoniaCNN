@@ -31,8 +31,8 @@ training:
   use_mixed_precision: false
 
 data:
-  train_dir: "chest_xray/train"
-  test_dir: "chest_xray/test"
+  train_dir: "data/chest_xray/train"
+  test_dir: "data/chest_xray/test"
   image_size: [64, 64]        # Match model input
   normalize_method: "rescale"
   

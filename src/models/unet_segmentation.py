@@ -15,7 +15,7 @@ import logging
 from typing import Optional, Tuple, List, Dict, Any
 
 # Import validation utilities
-from validation_utils import (
+from src.utils.validation_utils import (
     validate_input_shape, validate_learning_rate, validate_batch_size,
     validate_directory_exists, validate_image_file, safe_load_image,
     validate_model_save_path, ValidationError, FileValidationError,

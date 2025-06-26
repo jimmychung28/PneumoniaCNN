@@ -7,7 +7,7 @@ Complete training pipeline for two-stage pneumonia detection:
 """
 
 # Fix TensorFlow warnings first
-import fix_tensorflow_warnings
+import src.utils.fix_tensorflow_warnings
 
 import os
 import argparse
@@ -16,9 +16,9 @@ import tensorflow as tf
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-from segmentation_classification_pipeline import TwoStagePneumoniaDetector
-from unet_segmentation import LungSegmentationUNet, create_lung_masks_for_dataset
-from cnn import PneumoniaCNN  # Original model for comparison
+from src.models.segmentation_classification_pipeline import TwoStagePneumoniaDetector
+from src.models.unet_segmentation import LungSegmentationUNet, create_lung_masks_for_dataset
+from src.models.cnn import PneumoniaCNN  # Original model for comparison
 
 class TwoStageTrainer:
     def __init__(self, data_dir='chest_xray'):

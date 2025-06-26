@@ -14,7 +14,7 @@ from sklearn.metrics import classification_report, confusion_matrix, roc_auc_sco
 from datetime import datetime
 import platform
 
-from unet_segmentation import LungSegmentationUNet
+from src.models.unet_segmentation import LungSegmentationUNet
 
 # Configure for Apple Silicon if available
 if platform.system() == 'Darwin' and platform.machine() == 'arm64':
@@ -468,11 +468,11 @@ def main():
     print(f"\nClassification model parameters: {model.count_params():,}")
     
     # For demonstration with actual data
-    if os.path.exists('chest_xray/train'):
+    if os.path.exists('data/chest_xray/train'):
         print("\nDemo: Predicting on a sample image...")
         
         # Find a sample image
-        sample_dir = 'chest_xray/train/PNEUMONIA'
+        sample_dir = 'data/chest_xray/train/PNEUMONIA'
         if os.path.exists(sample_dir):
             sample_files = [f for f in os.listdir(sample_dir) if f.lower().endswith('.jpeg')]
             if sample_files:
@@ -491,7 +491,7 @@ def main():
     
     print("\n✅ Two-stage pipeline setup completed!")
     print("\nTo train the model:")
-    print("detector.train_classification_model('chest_xray/train', 'chest_xray/test')")
+    print("detector.train_classification_model('data/chest_xray/train', 'data/chest_xray/test')")
 
 
 if __name__ == "__main__":

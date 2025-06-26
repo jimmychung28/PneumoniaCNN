@@ -12,7 +12,7 @@ import logging
 import time
 from functools import partial
 
-from validation_utils import (
+from src.utils.validation_utils import (
     validate_directory_exists, validate_dataset_structure, 
     ValidationError, FileValidationError, logger as validation_logger
 )
@@ -51,8 +51,8 @@ class PerformanceDataPipeline:
         self.use_mixed_precision = self.training_config.get('use_mixed_precision', False)
         
         # Data paths and parameters
-        self.train_dir = self.data_config.get('train_dir', 'chest_xray/train')
-        self.test_dir = self.data_config.get('test_dir', 'chest_xray/test')
+        self.train_dir = self.data_config.get('train_dir', 'data/chest_xray/train')
+        self.test_dir = self.data_config.get('test_dir', 'data/chest_xray/test')
         self.val_dir = self.data_config.get('val_dir')
         
         self.image_size = tuple(self.data_config.get('image_size', [128, 128]))
@@ -655,8 +655,8 @@ if __name__ == "__main__":
     # Test configuration
     test_config = {
         'data': {
-            'train_dir': 'chest_xray/train',
-            'test_dir': 'chest_xray/test',
+            'train_dir': 'data/chest_xray/train',
+            'test_dir': 'data/chest_xray/test',
             'image_size': [128, 128],
             'use_augmentation': True,
             'normalize_method': 'rescale',

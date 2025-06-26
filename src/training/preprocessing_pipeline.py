@@ -12,7 +12,7 @@ from functools import partial
 import albumentations as albu
 from albumentations.tensorflow import AugmentationPipelineV2
 
-from validation_utils import ValidationError, ImageValidationError, logger as validation_logger
+from src.utils.validation_utils import ValidationError, ImageValidationError, logger as validation_logger
 
 logger = logging.getLogger(__name__)
 

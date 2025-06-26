@@ -11,8 +11,8 @@ from typing import Dict, Any, Optional, Union, List
 import logging
 from datetime import datetime
 
-from config_schema import Config
-from validation_utils import validate_file_exists, validate_directory_exists, ValidationError
+from src.config.config_schema import Config
+from src.utils.validation_utils import validate_file_exists, validate_directory_exists, ValidationError
 
 logger = logging.getLogger(__name__)
 

@@ -45,8 +45,8 @@ training:
   use_mixed_precision: true   # Recommended for large models
 
 data:
-  train_dir: "chest_xray/train"
-  test_dir: "chest_xray/test"
+  train_dir: "data/chest_xray/train"
+  test_dir: "data/chest_xray/test"
   
   # High resolution for segmentation
   image_size: [512, 512]

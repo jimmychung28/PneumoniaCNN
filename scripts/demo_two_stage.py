@@ -6,7 +6,7 @@ Demo script for two-stage pneumonia detection pipeline
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from segmentation_classification_pipeline import TwoStagePneumoniaDetector
+from src.models.segmentation_classification_pipeline import TwoStagePneumoniaDetector
 
 def demo_two_stage_pipeline():
     """Demonstrate the two-stage pipeline capabilities"""

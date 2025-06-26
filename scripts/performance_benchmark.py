@@ -20,8 +20,8 @@ from dataclasses import dataclass, asdict
 
 # Import our modules
 from high_performance_cnn import HighPerformancePneumoniaCNN, main_high_performance
-from config_loader import ConfigManager
-from validation_utils import logger as validation_logger
+from src.config.config_loader import ConfigManager
+from src.utils.validation_utils import logger as validation_logger
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)

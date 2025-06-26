@@ -61,8 +61,8 @@ training:
 # Data Configuration - High-Performance Pipeline
 data:
   # Dataset paths
-  train_dir: "chest_xray/train"
-  test_dir: "chest_xray/test"
+  train_dir: "data/chest_xray/train"
+  test_dir: "data/chest_xray/test"
   val_dir: null  # Use split from training data
   
   # Image parameters optimized for performance

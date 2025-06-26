@@ -10,7 +10,7 @@ from typing import Dict, Any, Optional, Tuple, List, Callable
 import time
 from contextlib import contextmanager
 
-from validation_utils import ValidationError, ModelValidationError, logger as validation_logger
+from src.utils.validation_utils import ValidationError, ModelValidationError, logger as validation_logger
 
 logger = logging.getLogger(__name__)
 

@@ -68,8 +68,8 @@ training:
 # Data configuration
 data:
   # Dataset paths
-  train_dir: "chest_xray/train"
-  test_dir: "chest_xray/test"
+  train_dir: "data/chest_xray/train"
+  test_dir: "data/chest_xray/test"
   val_dir: null             # Optional separate validation set
   
   # Image preprocessing

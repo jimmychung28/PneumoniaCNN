@@ -156,8 +156,8 @@ class TrainingConfig:
 class DataConfig:
     """Configuration for data handling."""
     # Dataset paths
-    train_dir: str = "chest_xray/train"
-    test_dir: str = "chest_xray/test"
+    train_dir: str = "data/chest_xray/train"
+    test_dir: str = "data/chest_xray/test"
     val_dir: Optional[str] = None  # If separate validation set exists
     
     # Data preprocessing
