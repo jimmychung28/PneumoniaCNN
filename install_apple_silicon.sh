@@ -40,11 +40,13 @@ if [[ $python_major -ne 3 ]] || [[ $python_minor -lt 8 ]] || [[ $python_minor -g
     echo "Required: Python 3.8, 3.9, 3.10, or 3.11"
     echo ""
     echo "To install Python 3.11 on macOS:"
-    echo "1. Install Homebrew if you haven't: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
-    echo "2. Install Python 3.11: brew install python@3.11"
+    echo "1. Install Homebrew (visit https://brew.sh for safe installation instructions)"
+    echo "2. After Homebrew is installed: brew install python@3.11"
     echo "3. Use Python 3.11: python3.11 -m venv venv_m1"
     echo ""
     echo "Or download from python.org: https://www.python.org/downloads/"
+    echo ""
+    echo "⚠️  SECURITY WARNING: Never run 'curl | bash' commands from untrusted sources!"
     exit 1
 fi
 
