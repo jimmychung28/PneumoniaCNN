@@ -1,0 +1,228 @@
+# High-Performance Configuration for Pneumonia Detection CNN
+# This configuration enables all performance optimizations for maximum speed and efficiency
+
+experiment_name: "high_performance_pneumonia_cnn"
+description: "Maximum performance configuration with all optimizations enabled"
+version: "1.0"
+author: "Performance Optimization System"
+tags: ["high-performance", "mixed-precision", "tf-data", "production"]
+
+# Model Configuration - Optimized Architecture
+model:
+  architecture: "standard"  # standard, unet, two_stage
+  input_shape: [224, 224, 3]  # Optimal size for performance vs accuracy
+  learning_rate: 0.001
+  dropout_rate: 0.3
+  l2_regularization: 0.0001
+  activation: "relu"
+  batch_normalization: true
+
+# Training Configuration - Performance Optimizations
+training:
+  epochs: 50
+  batch_size: 64  # Larger batch size for better GPU utilization
+  validation_split: 0.2
+  
+  # Mixed Precision Training for 2x speedup
+  use_mixed_precision: true
+  loss_scale: "dynamic"
+  
+  # Advanced Optimizers
+  optimizer: "adamw"  # AdamW with weight decay
+  optimizer_params:
+    weight_decay: 0.01
+    beta_1: 0.9
+    beta_2: 0.999
+    epsilon: 1e-7
+  
+  # Learning Rate Scheduling
+  use_lr_schedule: true
+  lr_schedule_type: "warmup_cosine"  # warmup_cosine, cosine, exponential, polynomial
+  lr_schedule_params:
+    warmup_steps: 1000
+    steps_per_epoch: 100
+  
+  # Advanced Gradient Management
+  gradient_clip_norm: 1.0
+  gradient_clip_value: null
+  
+  # Early Stopping
+  use_early_stopping: true
+  early_stopping_patience: 15
+  
+  # Performance Monitoring
+  enable_profiling: true
+  profile_steps: [10, 50]  # Profile these specific epochs
+  
+  # Model Optimization
+  optimize_graph: true
+  convert_to_tflite: false  # Enable for mobile deployment
+
+# Data Configuration - High-Performance Pipeline
+data:
+  # Dataset paths
+  train_dir: "chest_xray/train"
+  test_dir: "chest_xray/test"
+  val_dir: null  # Use split from training data
+  
+  # Image parameters optimized for performance
+  image_size: [224, 224]
+  channels: 3
+  normalize_method: "imagenet"  # imagenet, rescale, standardize, custom
+  
+  # High-performance data loading
+  cache_dataset: true
+  batch_processing: true
+  
+  # Advanced augmentation for better generalization
+  use_augmentation: true
+  augmentation_backend: "tensorflow"  # tensorflow, albumentations
+  augmentation:
+    rotation_range: 20
+    horizontal_flip: true
+    vertical_flip: false
+    brightness_range: 0.2
+    contrast_range: 0.2
+    zoom_range: 0.15
+    width_shift_range: 0.1
+    height_shift_range: 0.1
+    shear_range: 0.1
+    # Advanced augmentations
+    noise: true
+    blur: false
+    distortion: false
+    clahe: true  # Contrast Limited Adaptive Histogram Equalization for medical images
+  
+  # Memory-mapped loading for large datasets
+  use_memory_mapped: false  # Enable for very large datasets
+  memory_mapped_cache_dir: "data_cache"
+
+# Paths Configuration
+paths:
+  models_dir: "models"
+  logs_dir: "logs"
+  checkpoints_dir: "checkpoints"
+  results_dir: "results"
+
+# Logging Configuration - Comprehensive Monitoring
+logging:
+  level: "INFO"
+  use_tensorboard: true
+  tensorboard_update_freq: 100
+  log_metrics: true
+  save_model_plots: true
+  benchmark_data: true  # Benchmark data pipeline performance
+  
+  # Advanced logging
+  log_gradients: true
+  log_weights: false
+  log_images: false  # Set true for debugging (increases storage)
+  
+  # Performance logging
+  log_performance_metrics: true
+  log_memory_usage: true
+  log_gpu_utilization: true
+
+# Performance Monitoring Configuration
+performance:
+  # Memory optimization
+  gpu_memory_growth: true
+  gpu_memory_limit: null  # MB, null for unlimited
+  
+  # CPU optimization
+  inter_op_parallelism_threads: 0  # 0 for auto
+  intra_op_parallelism_threads: 0  # 0 for auto
+  
+  # tf.data optimization
+  tf_data_autotune: true
+  prefetch_buffer_size: "AUTOTUNE"
+  num_parallel_calls: "AUTOTUNE"
+  
+  # Benchmarking
+  warmup_steps: 10
+  benchmark_steps: 100
+  
+  # Profiling
+  profile_memory: true
+  profile_compute: true
+
+# Hardware Configuration
+hardware:
+  # GPU settings
+  use_gpu: true
+  mixed_precision_compatible: true
+  tensor_cores_available: true
+  
+  # Expected hardware specs (for optimization hints)
+  gpu_memory_gb: 8
+  cpu_cores: 8
+  system_memory_gb: 32
+
+# Deployment Configuration
+deployment:
+  target_platform: "server"  # server, mobile, edge
+  optimize_for_inference: true
+  quantization: false
+  pruning: false
+  
+  # Performance targets
+  target_latency_ms: 100
+  target_throughput_fps: 30
+  max_model_size_mb: 500
+
+# Experiment Tracking
+tracking:
+  track_experiments: true
+  save_best_model: true
+  save_checkpoints: true
+  checkpoint_frequency: 5  # Save every N epochs
+  
+  # Metrics to track
+  primary_metric: "val_accuracy"
+  monitor_metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "auc"
+    - "loss"
+    - "val_loss"
+    - "val_accuracy"
+    - "learning_rate"
+    - "epoch_time"
+    - "samples_per_second"
+
+# Reproducibility
+reproducibility:
+  random_seed: 42  # Set to null for non-deterministic training
+  deterministic_ops: false  # Set true for reproducibility (slower)
+
+# Advanced Features
+advanced:
+  # Multi-GPU training (if available)
+  use_multi_gpu: false
+  gpu_strategy: "mirrored"  # mirrored, multi_worker_mirrored
+  
+  # Custom callbacks
+  use_custom_callbacks: true
+  
+  # Model architecture search
+  use_nas: false  # Neural Architecture Search
+  
+  # Advanced loss functions
+  use_focal_loss: false
+  use_label_smoothing: false
+  label_smoothing_factor: 0.1
+
+# Validation and Testing
+validation:
+  cross_validation: false
+  cv_folds: 5
+  test_time_augmentation: false
+  ensemble_prediction: false
+
+# Resource Limits
+limits:
+  max_training_time_hours: 24
+  max_memory_usage_gb: 16
+  max_disk_usage_gb: 50
+  early_stop_on_resource_limit: true
