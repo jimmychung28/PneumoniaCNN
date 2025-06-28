@@ -369,6 +369,49 @@ PneumoniaCNN/
 - **Two-Stage vs Standard**: 5-8% accuracy improvement but 2x longer training
 - **Memory Usage**: U-Net requires ~8GB GPU memory, reduce batch size if needed
 
+## Testing
+
+This project includes a comprehensive test suite with unit tests, integration tests, and performance benchmarks.
+
+### Quick Start
+```bash
+# Verify test setup
+python test_pytest_setup.py
+
+# Run all tests
+pytest
+
+# Run with coverage report
+pytest --cov=src --cov-report=html
+
+# Use the test runner for convenience
+python run_tests.py unit        # Run unit tests
+python run_tests.py integration # Run integration tests
+python run_tests.py coverage    # Run with coverage
+```
+
+### Test Structure
+- **Unit Tests**: Test individual components (config, validation, data pipeline)
+- **Integration Tests**: Test end-to-end workflows
+- **Performance Tests**: Measure execution time and resource usage
+
+### Running Specific Tests
+```bash
+# Run tests for a specific module
+pytest tests/unit/test_config.py
+
+# Run tests matching a pattern
+pytest -k "config"
+
+# Run quick tests (exclude slow/GPU tests)
+pytest -m "not slow and not gpu"
+
+# Run tests in parallel
+pytest -n auto
+```
+
+For detailed testing documentation, see [tests/README.md](tests/README.md).
+
 ## License
 
 This project is for educational and research purposes.
